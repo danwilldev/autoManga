@@ -1,4 +1,4 @@
-package com.example.automanga;
+package com.automanga;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

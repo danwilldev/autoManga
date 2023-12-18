@@ -5,3 +5,5 @@ kavita:
   url: endpoint
   library: 1
   token: tokenHere
+  api:
+    key:
