@@ -1,0 +1,7 @@
+server:
+  port: 8081
+
+kavita:
+  url: endpoint
+  library: 1
+  token: tokenHere
