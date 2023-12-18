@@ -32,7 +32,8 @@ public class KavitaClient {
         public Optional<List<SeriesTitleResponse>> makeRequestToKavita() {
             final HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth("");
+            headers.setBearerAuth("***REMOVED***");
+
 
             AllSeriesRequest allSeriesRequest = AllSeriesRequest.builder()
                 .statements((Collections.singletonList(Statement.builder()
