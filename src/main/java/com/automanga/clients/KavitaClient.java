@@ -23,6 +23,8 @@ public class KavitaClient {
 
     @Value("${kavita.url}")
     private URI kavitaUrl;
+    @Value("${kavita.token}")
+    private String kavitaToken;
 
 
     public KavitaClient(final RestTemplateBuilder restTemplateBuilder){
@@ -32,7 +34,7 @@ public class KavitaClient {
         public Optional<List<SeriesTitleResponse>> makeRequestToKavita() {
             final HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth("***REMOVED***");
+            headers.setBearerAuth(kavitaToken);
 
 
             AllSeriesRequest allSeriesRequest = AllSeriesRequest.builder()
