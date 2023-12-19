@@ -5,6 +5,7 @@ import com.automanga.dtos.kavita.responses.SeriesTitleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +25,21 @@ public class KavitaService {
         return output.replace(' ', '?');
     }
 
+    private static String addReleaseGroup(String input, String position, String group) {
+        if (!position.isEmpty()) {
+            if (position.equals("before")) {
+                return "*" + group + input;
+            } else if (position.equals("after")) {
+                return input + group + "*";
+            } else {
+                log.error("Position set to invalid value, check config.");
+                throw new InvalidParameterException();
+            }
+        }
+        String output = "*" + input + "*";
+        return output.replace(' ', '?');
+    }
+
     public List<String> parseSeriesTitles() {
 
         Optional<List<SeriesTitleResponse>> titles = kavitaClient.makeRequestToKavita();
@@ -34,7 +50,7 @@ public class KavitaService {
                 .map(title -> formatForAutobrr(title.getName()) + ", " + formatForAutobrr(title.getLocalizedName()))
                 .collect(Collectors.toList());
 
-        log.info(String.valueOf(names));
+        log.info(String.valueOf(names).replace("[", "").replace("]", ""));
         return (names);
     }
 }
