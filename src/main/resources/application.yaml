@@ -2,8 +2,13 @@ server:
   port: 8081
 
 kavita:
-  url: endpoint
-  library: 1
-  token: tokenHere
+  url: https:<.......>kavita/
+  library:
+    ids: 1,2,3,4
+  token: jwtTokenHere(will be removed shortly when jwt rotation implemented using api key)
   api:
-    key:
+    key: 123456abc
+
+
+autobrr:
+  url: https:<........>/autobrr/

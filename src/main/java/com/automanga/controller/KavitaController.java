@@ -27,8 +27,13 @@ public class KavitaController {
         return kavitaClient.makeRequestToKavita();
     }
 
-    @GetMapping("/getParsedTitles")
+    @GetMapping("/getTitles")
     public List<String> getParsedTitles() {
         return kavitaService.parseSeriesTitles();
+    }
+
+    @GetMapping("/getJwt")
+    public String get() {
+        return kavitaClient.getKavitaJwt();
     }
 }
