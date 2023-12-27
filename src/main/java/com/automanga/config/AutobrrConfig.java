@@ -16,4 +16,9 @@ import java.net.URI;
 public class AutobrrConfig {
 
     private URI url;
+    private Boolean basicAuth;
+    private String username;
+    private String password;
+    private String apiKey;
+    private String filterId;
 }

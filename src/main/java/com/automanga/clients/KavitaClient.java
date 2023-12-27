@@ -42,7 +42,7 @@ public class KavitaClient {
 
     @Retryable(backoff = @Backoff(delay = 5000))
     public String getKavitaJwt() {
-        URI kavitaUrl = URI.create(kavitaConfig.getUrl() + "api/Plugin/authenticate");
+        URI kavitaUrl = URI.create(kavitaConfig.getUrl() + "/api/Plugin/authenticate");
         URI url = UriComponentsBuilder.fromUri(kavitaUrl)
                 .queryParam("apiKey", kavitaConfig.getApiKey())
                 .queryParam("pluginName", "AutoManga")
@@ -56,11 +56,9 @@ public class KavitaClient {
 
     @Retryable(backoff = @Backoff(delay = 5000))
     public Optional<List<SeriesTitleResponse>> makeRequestToKavita() {
-        URI url = URI.create(kavitaConfig.getUrl() + "api/Series/all-v2");
+        URI url = URI.create(kavitaConfig.getUrl() + "/api/Series/all-v2");
 
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(getKavitaJwt());
+        final HttpHeaders headers = getHeaders();
 
         AllSeriesRequest allSeriesRequest = allSeriesRequestBuilder.buildAllSeriesRequest();
 
@@ -68,5 +66,12 @@ public class KavitaClient {
         final ResponseEntity<List<SeriesTitleResponse>> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<>() {
         });
         return Optional.ofNullable(responseEntity.getBody());
+    }
+
+    private HttpHeaders getHeaders() {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(getKavitaJwt());
+        return headers;
     }
 }

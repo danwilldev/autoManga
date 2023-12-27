@@ -10,3 +10,8 @@ kavita:
 
 autobrr:
   url: https:<........>/autobrr/
+  basicAuth: true
+  username: admin
+  password: password
+  apiKey: 123546374abc
+  filterId: 14
