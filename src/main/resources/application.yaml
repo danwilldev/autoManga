@@ -5,9 +5,7 @@ kavita:
   url: https:<.......>kavita/
   library:
     ids: 1,2,3,4
-  token: jwtTokenHere(will be removed shortly when jwt rotation implemented using api key)
-  api:
-    key: 123456abc
+  apiKey: 123456abc
 
 
 autobrr:

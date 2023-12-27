@@ -1,9 +1,9 @@
 package com.automanga.service;
 
 import com.automanga.clients.KavitaClient;
+import com.automanga.config.KavitaConfig;
 import com.automanga.dtos.kavita.responses.SeriesTitleResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
@@ -15,11 +15,11 @@ import java.util.Optional;
 public class KavitaService {
 
     private final KavitaClient kavitaClient;
-    @Value("${kavita.library.ids}")
-    private List<Integer> kavitaLibraryIds;
+    private final KavitaConfig kavitaConfig;
 
-    public KavitaService(final KavitaClient kavitaClient) {
+    public KavitaService(final KavitaClient kavitaClient, KavitaConfig kavitaConfig) {
         this.kavitaClient = kavitaClient;
+        this.kavitaConfig = kavitaConfig;
     }
 
     private static String formatForAutobrr(String input) {
@@ -49,7 +49,7 @@ public class KavitaService {
         List<String> names = titles
                 .orElse(List.of())
                 .stream()
-                .filter(title -> kavitaLibraryIds.contains(title.getLibraryId()))
+                .filter(title -> kavitaConfig.getLibrary().getIds().contains(title.getLibraryId()))
                 .map(title -> formatForAutobrr(title.getName()) + ", " + formatForAutobrr(title.getLocalizedName()))
                 .toList();
 
