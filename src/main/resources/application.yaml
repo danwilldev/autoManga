@@ -15,3 +15,8 @@ autobrr:
   password: password
   apiKey: 123546374abc
   filterId: 14
+
+releases:
+  releaseGroup:
+    name: niceGroup1
+    position: after

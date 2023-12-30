@@ -2,6 +2,7 @@ package com.automanga.service;
 
 import com.automanga.clients.KavitaClient;
 import com.automanga.config.KavitaConfig;
+import com.automanga.config.ReleaseConfig;
 import com.automanga.dtos.kavita.responses.SeriesTitleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,23 +17,20 @@ public class KavitaService {
 
     private final KavitaClient kavitaClient;
     private final KavitaConfig kavitaConfig;
+    private final ReleaseConfig releaseConfig;
 
-    public KavitaService(final KavitaClient kavitaClient, KavitaConfig kavitaConfig) {
+    public KavitaService(final KavitaClient kavitaClient, KavitaConfig kavitaConfig, ReleaseConfig releaseConfig) {
         this.kavitaClient = kavitaClient;
         this.kavitaConfig = kavitaConfig;
+        this.releaseConfig = releaseConfig;
     }
 
-    private static String formatForAutobrr(String input) {
-        String output = "*" + input + "*";
-        return output.replace(' ', '?');
-    }
-
-    private static String addReleaseGroup(String input, String position, String group) {
+    private static String addReleaseGroup(String input, String position, String releaseGroup) {
         if (!position.isEmpty()) {
             if (position.equals("before")) {
-                return "*" + group + input;
+                return "*" + releaseGroup + input;
             } else if (position.equals("after")) {
-                return input + group + "*";
+                return input + releaseGroup + "*";
             } else {
                 log.error("Position set to invalid value, check config.");
                 throw new InvalidParameterException();
@@ -40,6 +38,13 @@ public class KavitaService {
         }
         String output = "*" + input + "*";
         return output.replace(' ', '?');
+    }
+
+    private String formatForAutobrr(String input) {
+        String title = "*" + input + "*";
+        title = title.replace(' ', '?');
+        title = addReleaseGroup(title, releaseConfig.getReleaseGroup().getPosition(), releaseConfig.getReleaseGroup().getName());
+        return title;
     }
 
     public List<String> parseSeriesTitles() {
