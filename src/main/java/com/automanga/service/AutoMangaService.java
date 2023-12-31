@@ -13,13 +13,13 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class KavitaService {
+public class AutoMangaService {
 
     private final KavitaClient kavitaClient;
     private final KavitaConfig kavitaConfig;
     private final ReleaseConfig releaseConfig;
 
-    public KavitaService(final KavitaClient kavitaClient, KavitaConfig kavitaConfig, ReleaseConfig releaseConfig) {
+    public AutoMangaService(final KavitaClient kavitaClient, KavitaConfig kavitaConfig, ReleaseConfig releaseConfig) {
         this.kavitaClient = kavitaClient;
         this.kavitaConfig = kavitaConfig;
         this.releaseConfig = releaseConfig;
@@ -47,7 +47,7 @@ public class KavitaService {
         return title;
     }
 
-    public List<String> parseSeriesTitles() {
+    public String parseSeriesTitles() {
 
         Optional<List<SeriesTitleResponse>> titles = kavitaClient.makeRequestToKavita();
 
@@ -58,7 +58,8 @@ public class KavitaService {
                 .map(title -> formatForAutobrr(title.getName()) + ", " + formatForAutobrr(title.getLocalizedName()))
                 .toList();
 
-        log.info(String.valueOf(names).replace("[", "").replace("]", ""));
-        return (names);
+        String namesAsString = String.valueOf(names).replace("[", "").replace("]", "");
+        log.info(namesAsString);
+        return namesAsString;
     }
 }

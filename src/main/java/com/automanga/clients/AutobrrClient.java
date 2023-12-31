@@ -31,11 +31,11 @@ public class AutobrrClient {
     }
 
     @Retryable(noRetryFor = HttpClientErrorException.class, backoff = @Backoff(delay = 5000))
-    public void updateFilter() {
+    public void updateFilter(String titles) {
         URI url = URI.create(autobrrConfig.getUrl() + "/api/filters/" + autobrrConfig.getFilterId());
         final HttpHeaders headers = getHeaders();
 
-        String requestJson = "{\"match_releases\":\"Test1\"}";
+        String requestJson = String.format("{\"match_releases\":\"%s\"}", titles);
         HttpEntity<String> httpEntity = new HttpEntity<>(requestJson, headers);
 
         try {

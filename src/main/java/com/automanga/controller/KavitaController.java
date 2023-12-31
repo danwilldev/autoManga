@@ -2,7 +2,7 @@ package com.automanga.controller;
 
 import com.automanga.clients.KavitaClient;
 import com.automanga.dtos.kavita.responses.SeriesTitleResponse;
-import com.automanga.service.KavitaService;
+import com.automanga.service.AutoMangaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +15,11 @@ import java.util.Optional;
 public class KavitaController {
 
     private final KavitaClient kavitaClient;
-    private final KavitaService kavitaService;
+    private final AutoMangaService autoMangaService;
 
-    public KavitaController(final KavitaClient kavitaClient, final KavitaService kavitaService) {
+    public KavitaController(final KavitaClient kavitaClient, final AutoMangaService autoMangaService) {
         this.kavitaClient = kavitaClient;
-        this.kavitaService = kavitaService;
+        this.autoMangaService = autoMangaService;
     }
 
     @GetMapping("/getSeries")
@@ -28,12 +28,7 @@ public class KavitaController {
     }
 
     @GetMapping("/getTitles")
-    public List<String> getParsedTitles() {
-        return kavitaService.parseSeriesTitles();
-    }
-
-    @GetMapping("/getJwt")
-    public String get() {
-        return kavitaClient.getKavitaJwt();
+    public String getParsedTitles() {
+        return autoMangaService.parseSeriesTitles();
     }
 }
