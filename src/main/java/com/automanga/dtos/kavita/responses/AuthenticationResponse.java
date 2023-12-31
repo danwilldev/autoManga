@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @RequiredArgsConstructor
-public class SeriesTitleResponse {
+public class AuthenticationResponse {
 
-    private int id;
-    private String name;
-    private String localizedName;
-    private int libraryId;
+    private String username;
+    private String token;
+    private String refreshToken;
+    private String apiKey;
 }

@@ -2,8 +2,21 @@ server:
   port: 8081
 
 kavita:
-  url: endpoint
-  library: 1
-  token: tokenHere
-  api:
-    key:
+  url: https:<.......>kavita/
+  library:
+    ids: 1,2,3,4
+  apiKey: 123456abc
+
+
+autobrr:
+  url: https:<........>/autobrr/
+  basicAuth: true
+  username: admin
+  password: password
+  apiKey: 123546374abc
+  filterId: 14
+
+releases:
+  releaseGroup:
+    name: niceGroup1
+    position: after
